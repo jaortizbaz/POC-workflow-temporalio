@@ -1,5 +1,5 @@
-# POC Temporal.io SDK
-The goal of this project is to create a POC workflow that uses the Temporal SDK.
+# POC Temporal.io Python SDK
+The goal of this project is to create a POC workflow that uses the Temporal Python SDK.
 
 ## Using Temporal.io in the project
 1. Add the dependency in the requirements.txt file
@@ -15,7 +15,17 @@ temporalio==1.2.0
 
 
 ## How to run the workflow
-There are 2 ways:
+1. Run the SFTP
+2. Start the Temporal.io cluster.
+
+    a. Using the CLI
+
+    b. Using the cluster in localhost
+
+3. Add the workflow from this project to temporal.io
+
+### Run the SFTP
+To run an instance of a SFTP in localhost using Docker please follow [these instructions](sftp/README.md).
 
 ### Temporal CLI 
 Having the Temporal CLI installed in localhost:
@@ -34,7 +44,7 @@ temporal server start-dev
 docker compose up
 ```
 
-#### Add the workflow from this project to the existing cluster
+### Add the workflow from this project to the existing cluster
 
 
 ## External links
