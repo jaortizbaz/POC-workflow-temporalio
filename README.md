@@ -53,3 +53,4 @@ Once the Temporal CLI or cluster is started we can just run the main module of t
 * [Temporal.io documentation](https://docs.temporal.io/)
 * [All the ways to run a Temporal Cluster](https://docs.temporal.io/kb/all-the-ways-to-run-a-cluster)
 * [Python SDK](https://docs.temporal.io/dev-guide/python)
+* [Samples Python](https://github.com/temporalio/samples-python)
