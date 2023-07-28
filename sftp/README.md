@@ -3,10 +3,11 @@ These are the instructions to run an instance of an SFTP in localhost using Dock
 
 ## Run the SFTP container
 ```shell
-cd ./repository
+cd ./sftp
 docker build -t repository-container .
 docker run -d -p 2222:22 docker.io/library/repository-container
 ```
+Or run the script [run_sftp_server.sh](run_sftp_server.sh)
 
 **Please find in the logs of the docker build the name of the container that needs to run.**
 
