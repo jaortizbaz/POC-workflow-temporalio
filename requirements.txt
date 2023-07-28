@@ -1,2 +1,0 @@
-temporalio==1.2.0
-paramiko>=3.0.0

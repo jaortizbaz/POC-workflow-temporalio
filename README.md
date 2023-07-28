@@ -2,13 +2,17 @@
 The goal of this project is to create a POC workflow that uses the Temporal Python SDK.
 
 ## Using Temporal.io in the project
-1. Add the dependency in the requirements.txt file
+1. Clone this repo
+2. Make sure temporalio is in the file [pyproject.toml](pyproject.toml)
+
 ```text
-temporalio==1.2.0
+temporalio = "1.2.0"
 ```
-2. Install it as usual
+
+3. Install it as usual
+
 ```shell
-./venv/Scripts/pip intall -r requirements.txt
+poetry install
 ```
 
 ## How to run the workflow

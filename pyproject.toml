@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "poc-workflow-temporalio"
+version = "0.0.1"
+description = "POC using Temporal Python SDK"
+authors = ["Jose Ortiz"]
+readme = "README.md"
+packages = [{ include = "**/*.py", from = "." }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+temporalio = "1.2.0"
+paramiko = "3.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "7.2.1"
+pytest-asyncio = "0.21.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
