@@ -8,7 +8,7 @@ This project has the following components:
 3. [Workflow](#Workflow)
 4. [Main](#Main)
 
-### [Dataclass](compose_greeting_input.py)
+### [Dataclass](activity/compose_greeting_activity.py)
 This is an example of a type of data that can be used in an Activity in Temporal:
 
 ```python

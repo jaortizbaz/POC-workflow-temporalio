@@ -1,5 +1,11 @@
 from temporalio import activity
-from compose_greeting_input import ComposeGreetingInput
+from dataclasses import dataclass
+
+
+@dataclass
+class ComposeGreetingInput:
+    greeting: str
+    name: str
 
 
 @activity.defn
