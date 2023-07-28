@@ -4,8 +4,8 @@ import logging
 from temporalio.client import Client
 from temporalio.worker import Worker
 
-from greeting_workflow import GreetingWorkflow
-from compose_greeting_activity import compose_greeting
+from hello_world.workflow.greeting_workflow import GreetingWorkflow
+from hello_world.activity.compose_greeting_activity import compose_greeting
 
 
 async def main():

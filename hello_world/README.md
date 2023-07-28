@@ -18,7 +18,7 @@ class ComposeGreetingInput:
     name: str
 ```
 
-### [Activity](compose_greeting_activity.py)
+### [Activity](activity/compose_greeting_activity.py)
 An activity can be any piece of code in Python. In this case it is just a function which returns a string with a
 greeting and a name which are past as a parameter of [ComposeGreetingInput](compose_greeting_input.py):
 
@@ -29,7 +29,7 @@ async def compose_greeting(greeting_input: ComposeGreetingInput) -> str:
     return f"{greeting_input.greeting}, {greeting_input.name}!"
 ```
 
-### [Workflow](greeting_workflow.py)
+### [Workflow](workflow/greeting_workflow.py)
 The workflow is the set of tasks that needs to run in the project. In this case we have a workflow composed by only one
 activity:
 

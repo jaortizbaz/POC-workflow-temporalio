@@ -4,7 +4,9 @@ version = "0.0.1"
 description = "POC using Temporal Python SDK"
 authors = ["Jose Ortiz"]
 readme = "README.md"
-packages = [{ include = "**/*.py", from = "." }]
+packages = [
+    { include = "hello_world/*.py", from = "." },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -12,9 +14,58 @@ temporalio = "1.2.0"
 paramiko = "3.0.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "7.2.1"
-pytest-asyncio = "0.21.1"
+black = "^22.3.0"
+isort = "^5.10.1"
+mypy = "^0.961"
+pytest = "^7.1.2"
+pytest-asyncio = "^0.18.3"
+
+[tool.poetry.group.encryption]
+optional = true
+dependencies = { cryptography = "^38.0.1", aiohttp = "^3.8.1" }
+
+[tool.poetry.group.open_telemetry]
+optional = true
+[tool.poetry.group.open_telemetry.dependencies]
+temporalio = { version = "*", extras = ["opentelemetry"] }
+opentelemetry-exporter-otlp-proto-grpc = "1.18.0"
+
+[tool.poetry.group.pydantic]
+optional = true
+dependencies = { pydantic = "^1.10.4" }
+
+[tool.poetry.group.sentry]
+optional = true
+dependencies = { sentry-sdk = "^1.11.0" }
+
+[tool.poe.tasks]
+format = [{cmd = "black ."}, {cmd = "isort ."}]
+lint = [{cmd = "black --check ."}, {cmd = "isort --check-only ."}, {ref = "lint-types" }]
+lint-types = "mypy --check-untyped-defs --namespace-packages ."
+test = "pytest"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true
+
+[tool.mypy]
+ignore_missing_imports = true
+namespace_packages = true
+
+[[tool.mypy.overrides]]
+module = "aiohttp.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "opentelemetry.*"
+ignore_errors = true
