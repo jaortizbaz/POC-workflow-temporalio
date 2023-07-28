@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y openssh-server
 
-# configure sftp user
+# configure repository user
 RUN useradd -rm -d /home/sftp_user -s /bin/bash -G sudo -u 10001 sftp_user
 RUN echo "sftp_user:password" | chpasswd
 
@@ -18,19 +18,19 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 
-#setup directory for sftp
-RUN mkdir -p /var/sftp/uploads
-RUN chown root:root /var/sftp
-RUN chmod 755 /var/sftp
-RUN chown sftp_user:sftp_user /var/sftp/uploads
+#setup directory for repository
+RUN mkdir -p /var/repository/uploads
+RUN chown root:root /var/repository
+RUN chmod 755 /var/repository
+RUN chown sftp_user:sftp_user /var/repository/uploads
 
 
-# update to only allow sftp and not ssh tunneling to limit the non-necessary activity
+# update to only allow repository and not ssh tunneling to limit the non-necessary activity
 RUN echo '\n\
 Match User sftp_user  \n\
-ForceCommand internal-sftp \n\
+ForceCommand internal-repository \n\
 PasswordAuthentication yes \n\
-ChrootDirectory /var/sftp \n\
+ChrootDirectory /var/repository \n\
 PermitTunnel no  \n\
 AllowAgentForwarding no \n\
 AllowTcpForwarding no \n\

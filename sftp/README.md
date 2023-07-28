@@ -3,9 +3,9 @@ These are the instructions to run an instance of an SFTP in localhost using Dock
 
 ## Run the SFTP container
 ```shell
-cd ./sftp
-docker build -t sftp-container .
-docker run -d -p 2222:22 docker.io/library/sftp-container
+cd ./repository
+docker build -t repository-container .
+docker run -d -p 2222:22 docker.io/library/repository-container
 ```
 
 **Please find in the logs of the docker build the name of the container that needs to run.**
@@ -15,7 +15,7 @@ For simplicity the password is set to **password**.
 
 ### Connect using a terminal
 ```shell
-sftp -oPort=2222 sftp_user@127.0.0.1
+repository -oPort=2222 sftp_user@127.0.0.1
 ```
 
 ### Connect using Filezilla or other client
