@@ -11,21 +11,14 @@ temporalio==1.2.0
 ./venv/Scripts/pip intall -r requirements.txt
 ```
 
-## Develop a workflow
-
-
 ## How to run the workflow
-1. Run the SFTP
-2. Start the Temporal.io cluster.
+1. Start the Temporal.io cluster.
 
     a. Using the CLI
 
     b. Using the cluster in localhost
 
-3. Add the workflow from this project to temporal.io
-
-### Run the SFTP
-To run an instance of a SFTP in localhost using Docker please follow [these instructions](sftp/README.md).
+2. Add the workflow from this project to temporal.io
 
 ### Temporal CLI 
 Having the Temporal CLI installed in localhost:
@@ -33,9 +26,11 @@ Having the Temporal CLI installed in localhost:
 2. Unzip the file in a folder of your election
 3. Add it to the Windows Environment Variables
 4. Start the project using the command
+
 ```shell
 temporal server start-dev
 ```
+5. Go to http://localhost:8233
 
 ### Temporal cluster
 1. Clone the project [temporalio-docker-compose](https://github.com/temporalio/docker-compose)
@@ -43,9 +38,12 @@ temporal server start-dev
 ```shell
 docker compose up
 ```
+3. Go to http://localhost:8080/
 
 ### Add the workflow from this project to the existing cluster
+Once the Temporal CLI or cluster is started we can just run the main module of the workflow.
 
+**More details in the README file of each subproject.**
 
 ## External links
 * [Temporal.io documentation](https://docs.temporal.io/)
