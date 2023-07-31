@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y openssh-server
 
 # configure repository user
 RUN useradd -rm -d /home/sftp_user -s /bin/bash -G sudo -u 10001 sftp_user
-RUN echo "sftp_user:password" | chpasswd
+RUN echo "sftp_user:pswd" | chpasswd
 
 # necessary sshd file
 RUN mkdir /var/run/sshd
@@ -23,15 +23,3 @@ RUN mkdir -p /var/repository/uploads
 RUN chown root:root /var/repository
 RUN chmod 755 /var/repository
 RUN chown sftp_user:sftp_user /var/repository/uploads
-
-
-# update to only allow repository and not ssh tunneling to limit the non-necessary activity
-RUN echo '\n\
-Match User sftp_user  \n\
-ForceCommand internal-repository \n\
-PasswordAuthentication yes \n\
-ChrootDirectory /var/repository \n\
-PermitTunnel no  \n\
-AllowAgentForwarding no \n\
-AllowTcpForwarding no \n\
-X11Forwarding no ' >> /etc/ssh/sshd_config

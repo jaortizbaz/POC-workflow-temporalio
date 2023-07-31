@@ -16,7 +16,7 @@ For simplicity the password is set to **password**.
 
 ### Connect using a terminal
 ```shell
-repository -oPort=2222 sftp_user@127.0.0.1
+sftp -oPort=2222 sftp_user@127.0.0.1
 ```
 
 ### Connect using Filezilla or other client
@@ -26,7 +26,7 @@ repository -oPort=2222 sftp_user@127.0.0.1
 | **Host**     | localhost |
 | **Port**     | 2222      |
 | **User**     | sftp_user |
-| **Password** | password  |
+| **Password** | pswd      |
 
 ## External Links
 [Create SFTP Container using Docker](https://medium.com/@lejiend7/create-sftp-container-using-docker-e6f099762e42)

@@ -1,2 +1,2 @@
 docker build -t repository-container .
-docker run -d -p 22:22 docker.io/library/repository-container
+docker run -d -p 2036:22 docker.io/library/repository-container
