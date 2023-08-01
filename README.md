@@ -34,6 +34,7 @@ Having the Temporal CLI installed in localhost:
 ```shell
 temporal server start-dev
 ```
+
 5. Go to http://localhost:8233
 
 ### Temporal cluster
@@ -44,6 +45,15 @@ docker compose up
 ```
 3. Go to http://localhost:8080/
 
+### Create namespaces
+In order to isolate each project, we can create namespaces so that in the UI we have a clear overview of what is going
+on. To do that we need to run the following command:
+
+```shell
+temporal operator namespace create <NAMESPACE_NAME>
+```
+
+
 ### Add the workflow from this project to the existing cluster
 Once the Temporal CLI or cluster is started we can just run the main module of the workflow.
 
@@ -53,4 +63,5 @@ Once the Temporal CLI or cluster is started we can just run the main module of t
 * [Temporal.io documentation](https://docs.temporal.io/)
 * [All the ways to run a Temporal Cluster](https://docs.temporal.io/kb/all-the-ways-to-run-a-cluster)
 * [Python SDK](https://docs.temporal.io/dev-guide/python)
+* [Python SDK v2 example](https://github.com/temporalio/proposals/blob/master/python/phase-2.md)
 * [Samples Python](https://github.com/temporalio/samples-python)
