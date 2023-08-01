@@ -7,7 +7,7 @@ cd ./sftp
 docker build -t repository-container .
 docker run -d -p 2222:22 docker.io/library/repository-container
 ```
-Or run the script [run_sftp_server.sh](run_sftp_server.sh)
+Or run the script [run_sftp_server.sh](run_sftp_server.bat)
 
 **Please find in the logs of the docker build the name of the container that needs to run.**
 
@@ -16,7 +16,7 @@ For simplicity the password is set to **password**.
 
 ### Connect using a terminal
 ```shell
-sftp -oPort=2222 sftp_user@127.0.0.1
+sftp -oPort=2222 sftp_user@localhost
 ```
 
 ### Connect using Filezilla or other client
