@@ -1,47 +1,47 @@
 import logging
 
-import paramiko
+from paramiko import SSHClient, AutoAddPolicy
+
+from etl.entity.sftp_properties import SftpProps
 
 
-class SftpClient:
-
-    def __init__(self, host, port, username, password, path):
-        self.client = None
-        self.host = host
-        self.port = port
-        self.username = username
-        self.password = password
-        self.path = path
-
-    def __connect_sftp(self):
-        self.client = paramiko.SSHClient()
-        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+def __connect_sftp(sftp_props: SftpProps):
+    client = SSHClient()
+    client.set_missing_host_key_policy(AutoAddPolicy())
+    try:
+        client.connect(
+            hostname=sftp_props.host,
+            port=sftp_props.port,
+            username=sftp_props.user,
+            password=sftp_props.password)
+    except Exception as error:
+        raise RuntimeError(f"Error connecting to sftp server. Error: {error}")
+    else:
         try:
-            self.client.connect(
-                hostname=self.host,
-                port=self.port,
-                username=self.username,
-                password=self.password)
+            sftp = client.open_sftp()
         except Exception as error:
-            raise RuntimeError(f"Error connecting to sftp server. Error: {error}")
-        else:
-            try:
-                self.sftp = self.client.open_sftp()
-            except Exception as error:
-                raise RuntimeError(f"Error opening the SFTP. Error: {error}")
+            raise RuntimeError(f"Error opening the SFTP. Error: {error}")
+    return client, sftp
 
-    def __disconnect_sftp(self):
-        if self.sftp:
-            self.sftp.close()
-        if self.client:
-            self.client.close()
 
-    def exists(self, filename):
-        try:
-            self.__connect_sftp()
-            for file in self.sftp.listdir(self.path):
-                if file == filename:
-                    return True
-        except Exception as e:
-            logging.info(f"Error checking file {filename}. Cause: {e}")
-        return False
+def __disconnect_sftp(client, sftp):
+    if sftp:
+        sftp.close()
+    if client:
+        client.close()
+
+
+def exists_file(sftp_props: SftpProps):
+    client = None
+    sftp = None
+    try:
+        client, sftp = __connect_sftp(sftp_props)
+        for file in sftp.listdir(sftp_props.path):
+            print(f"{file} is in the sftp")
+            if file == sftp_props.filename:
+                return True
+    except Exception as e:
+        logging.info(f"Error checking file {sftp_props.filename}. Cause: {e}")
+    finally:
+        __disconnect_sftp(client, sftp)
+    return False

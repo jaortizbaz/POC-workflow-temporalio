@@ -1,28 +1,16 @@
 import time
-from dataclasses import dataclass
-
 from temporalio import activity
 
-from etl.repository.sftp import SftpClient
-
-
-@dataclass
-class SftpFile:
-    filename: str
+from etl.entity.sftp_properties import SftpProps
+from etl.repository.sftp import exists_file
 
 
 @activity.defn
-async def check_filename(sftp_file: SftpFile) -> bool:
-    activity.logger.info("Running activity with parameter %s" % sftp_file.filename)
-    sftp_client = SftpClient(
-        host='localhost',
-        port=2222,
-        username='sftp_user',
-        password='password',
-        path='/'
-    )
+def check_filename(sftp_props: SftpProps) -> bool:
+    activity.logger.info(f"Running activity to wait for file {sftp_props.filename}")
 
-    while not sftp_client.exists(filename=sftp_file.filename):
+    while not exists_file(sftp_props):
         activity.heartbeat()
+        print(f"The file does not exist yet in the SFTP. Waiting for file {sftp_props.filename}...")
         time.sleep(10)
     return True
