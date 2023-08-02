@@ -32,13 +32,7 @@ async def main():
             for workflow_id in WORKFLOW_IDS:
                 result = await client.execute_workflow(
                     workflow=StarWarsEtl.run,
-                    arg=SftpProps(config.SFTP_HOST,
-                                  config.SFTP_PORT,
-                                  config.SFTP_USER,
-                                  config.SFTP_PASSWORD,
-                                  config.SFTP_PATH,
-                                  config.SFTP_FILEPATTERN,
-                                  ),
+                    arg=SftpProps(config.SFTP_FILEPATTERN),
                     id=workflow_id,
                     task_queue=TASK_QUEUE_NAME,
                     cron_schedule="* * * * *",
