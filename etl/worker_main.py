@@ -7,7 +7,8 @@ from temporalio.worker import Worker
 from etl.activity.api_activities import get_data_from_star_wars_api
 from etl.activity.sftp_activities import check_filename
 from etl.config.config import Config
-from etl.workflows.star_wars_workflow import StarWarsEtl
+from etl.workflows.sftp_workflow import SftpWorkflow
+from etl.workflows.star_wars_workflow import StarWarsWorkflow
 
 
 async def main():
@@ -16,7 +17,7 @@ async def main():
     worker = Worker(
         client,
         task_queue=config.TASK_QUEUE_NAME,
-        workflows=[StarWarsEtl],
+        workflows=[StarWarsWorkflow, SftpWorkflow],
         activities=[check_filename, get_data_from_star_wars_api],
         activity_executor=ThreadPoolExecutor(5),
     )

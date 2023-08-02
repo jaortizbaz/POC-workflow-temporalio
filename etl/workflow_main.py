@@ -5,25 +5,29 @@ from temporalio.client import Client, WorkflowFailureError
 from temporalio.exceptions import FailureError
 from etl.config.config import Config
 from etl.entity.sftp_properties import SftpProps
-from etl.workflows.star_wars_workflow import StarWarsEtl
+from etl.workflows.sftp_workflow import SftpWorkflow, SftpWorkflowProps
+from etl.workflows.star_wars_workflow import StarWarsWorkflow
 
 
 async def main():
     config = Config()
     client = await Client.connect(config.TEMPORALIO_HOST)
     try:
-        for workflow_id in config.WORKFLOW_IDS:
-            handle = await client.start_workflow(
-                workflow=StarWarsEtl.run,
-                arg=SftpProps(config.SFTP_FILEPATTERN),
-                id=workflow_id,
-                task_queue=config.TASK_QUEUE_NAME,
-                cron_schedule="* * * * *",
-            )
+        await client.start_workflow(
+            workflow=SftpWorkflow.run,
+            arg=SftpWorkflowProps(SftpProps(config.SFTP_FILEPATTERN), config.STAR_WARS_WORKFLOW_ID),
+            id=config.SFTP_WORKFLOW_ID,
+            task_queue=config.TASK_QUEUE_NAME,
 
-            result = await handle.result()
-
-            print(f"Result: {result}")
+        )
+        handle = await client.start_workflow(
+            workflow=StarWarsWorkflow.run,
+            id=config.STAR_WARS_WORKFLOW_ID,
+            task_queue=config.TASK_QUEUE_NAME,
+        )
+        await handle.result()
+        result = await handle.query(StarWarsWorkflow.get_star_wars_details)
+        print(f"Result: {result}")
     except WorkflowFailureError as e:
         append_temporal_stack(e)
 

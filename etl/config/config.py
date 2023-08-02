@@ -1,3 +1,4 @@
+import json
 from os import environ
 
 
@@ -13,7 +14,8 @@ class Config:
 
         self.TEMPORALIO_HOST = self.__set_env_var_if_exist("TEMPORALIO_HOST")
         self.TASK_QUEUE_NAME = self.__set_env_var_if_exist("TASK_QUEUE_NAME")
-        self.WORKFLOW_IDS = self.__set_env_var_if_exist("WORKFLOW_IDS").split(',')
+        self.SFTP_WORKFLOW_ID = self.__set_env_var_if_exist("SFTP_WORKFLOW_ID")
+        self.STAR_WARS_WORKFLOW_ID = self.__set_env_var_if_exist("STAR_WARS_WORKFLOW_ID")
 
         self.SFTP_HOST = self.__set_env_var_if_exist("SFTP_HOST")
         self.SFTP_PORT = int(self.__set_env_var_if_exist("SFTP_PORT"))
