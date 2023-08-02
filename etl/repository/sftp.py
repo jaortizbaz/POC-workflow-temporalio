@@ -31,6 +31,7 @@ def __disconnect_sftp(client, sftp):
 
 
 def exists_file(sftp_props: SftpProps):
+    print(f"Checking file {sftp_props.filename}.")
     client = None
     sftp = None
     try:
@@ -40,7 +41,7 @@ def exists_file(sftp_props: SftpProps):
             if file == sftp_props.filename:
                 return True
     except Exception as e:
-        logging.info(f"Error checking file {sftp_props.filename}. Cause: {e}")
+        logging.error(f"Error checking file {sftp_props.filename}. Cause: {e}")
     finally:
         __disconnect_sftp(client, sftp)
     return False

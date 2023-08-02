@@ -9,6 +9,7 @@ class Config:
         return ''
 
     def __init__(self):
+        self.API_BASE_URL = self.__set_env_var_if_exist("API_BASE_URL")
         self.TEMPORALIO_HOST = self.__set_env_var_if_exist("TEMPORALIO_HOST")
         self.SFTP_HOST = self.__set_env_var_if_exist("SFTP_HOST")
         self.SFTP_PORT = int(self.__set_env_var_if_exist("SFTP_PORT"))
