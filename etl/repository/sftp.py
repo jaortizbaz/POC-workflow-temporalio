@@ -1,11 +1,10 @@
 import logging
 
-from paramiko import SSHClient, AutoAddPolicy
-
 from etl.entity.sftp_properties import SftpProps
 
 
 def __connect_sftp(sftp_props: SftpProps):
+    from paramiko import SSHClient, AutoAddPolicy
     client = SSHClient()
     client.set_missing_host_key_policy(AutoAddPolicy())
     try:

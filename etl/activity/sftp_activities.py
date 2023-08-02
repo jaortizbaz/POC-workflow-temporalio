@@ -12,5 +12,5 @@ def check_filename(sftp_props: SftpProps) -> bool:
     while not exists_file(sftp_props):
         activity.heartbeat()
         print(f"The file does not exist yet in the SFTP. Waiting for file {sftp_props.filename}...")
-        time.sleep(10)
+        time.sleep(1)
     return True
