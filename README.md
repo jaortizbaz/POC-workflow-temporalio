@@ -65,3 +65,4 @@ Once the Temporal CLI or cluster is started we can just run the main module of t
 * [Python SDK](https://docs.temporal.io/dev-guide/python)
 * [Python SDK v2 example](https://github.com/temporalio/proposals/blob/master/python/phase-2.md)
 * [Samples Python](https://github.com/temporalio/samples-python)
+* [Documentation Samples Python](https://github.com/temporalio/documentation-samples-python)

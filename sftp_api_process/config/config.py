@@ -23,3 +23,5 @@ class Config:
         self.SFTP_PASSWORD = self.__set_env_var_if_exist("SFTP_PASSWORD")
         self.SFTP_PATH = self.__set_env_var_if_exist("SFTP_PATH")
         self.SFTP_FILEPATTERN = self.__set_env_var_if_exist("SFTP_FILEPATTERN")
+
+        self.PEOPLE_LIST = [int(person_id) for person_id in self.__set_env_var_if_exist("PEOPLE_LIST").split(',')]

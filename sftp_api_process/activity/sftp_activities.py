@@ -1,8 +1,8 @@
 import time
 from temporalio import activity
 
-from etl.entity.sftp_properties import SftpProps
-from etl.repository.sftp import Sftp
+from sftp_api_process.entity.sftp_properties import SftpProps
+from sftp_api_process.repository.sftp import Sftp
 
 
 @activity.defn

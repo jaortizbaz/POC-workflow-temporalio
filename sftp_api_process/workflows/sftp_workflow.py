@@ -4,9 +4,9 @@ from datetime import timedelta
 from temporalio import workflow
 from temporalio.common import RetryPolicy
 
-from etl.activity.sftp_activities import check_filename
-from etl.entity.sftp_properties import SftpProps
-from etl.workflows.star_wars_workflow import StarWarsWorkflow
+from sftp_api_process.activity.sftp_activities import check_filename
+from sftp_api_process.entity.sftp_properties import SftpProps
+from sftp_api_process.workflows.star_wars_workflow import StarWarsWorkflow
 
 
 @dataclass

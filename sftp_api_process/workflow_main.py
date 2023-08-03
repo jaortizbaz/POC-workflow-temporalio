@@ -3,10 +3,10 @@ from typing import Optional
 
 from temporalio.client import Client, WorkflowFailureError
 from temporalio.exceptions import FailureError
-from etl.config.config import Config
-from etl.entity.sftp_properties import SftpProps
-from etl.workflows.sftp_workflow import SftpWorkflow, SftpWorkflowProps
-from etl.workflows.star_wars_workflow import StarWarsWorkflow
+from sftp_api_process.config.config import Config
+from sftp_api_process.entity.sftp_properties import SftpProps
+from sftp_api_process.workflows.sftp_workflow import SftpWorkflow, SftpWorkflowProps
+from sftp_api_process.workflows.star_wars_workflow import StarWarsWorkflow
 
 
 async def main():
@@ -20,14 +20,20 @@ async def main():
             task_queue=config.TASK_QUEUE_NAME,
 
         )
-        handle = await client.start_workflow(
-            workflow=StarWarsWorkflow.run,
-            id=config.STAR_WARS_WORKFLOW_ID,
-            task_queue=config.TASK_QUEUE_NAME,
-        )
-        await handle.result()
-        result = await handle.query(StarWarsWorkflow.get_star_wars_details)
-        print(f"Result: {result}")
+        futures = []
+        for person_id in config.PEOPLE_LIST:
+            handle = await client.start_workflow(
+                workflow=StarWarsWorkflow.run,
+                arg=person_id,
+                id=f"{config.STAR_WARS_WORKFLOW_ID}_{person_id}",
+                task_queue=config.TASK_QUEUE_NAME,
+            )
+            await handle.result()
+            result = await handle.query(StarWarsWorkflow.get_star_wars_details)
+            futures.append(result)
+
+        futures_result = await asyncio.gather(*futures)
+        print(f"Result: {futures_result}")
     except WorkflowFailureError as e:
         append_temporal_stack(e)
 

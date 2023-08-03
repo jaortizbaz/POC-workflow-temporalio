@@ -1,7 +1,7 @@
 import logging
 
-from etl.config.config import Config
-from etl.entity.sftp_properties import SftpProps
+from sftp_api_process.config.config import Config
+from sftp_api_process.entity.sftp_properties import SftpProps
 
 class Sftp:
     def __init__(self):

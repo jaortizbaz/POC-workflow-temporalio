@@ -1,4 +1,4 @@
-from etl.config.config import Config
+from sftp_api_process.config.config import Config
 
 
 PEOPLE = 'people'
