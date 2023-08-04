@@ -89,3 +89,23 @@ the execution of the workflow even when this has finished.
     result = await handle.query(StarWarsWorkflow.get_star_wars_details)
     print(f"Result: {result}")
     ```
+
+## Configuration
+Please find below an example of the environment variables values for this project:
+```text
+API_BASE_URL=https://swapi.dev/api/
+
+SFTP_HOST=localhost
+SFTP_PORT=2222
+SFTP_USER=sftp_user
+SFTP_PASSWORD=pswd
+SFTP_PATH=/var/repository/uploads
+SFTP_FILEPATTERN=file_star_wars.csv
+
+TEMPORALIO_HOST=localhost:7233
+TASK_QUEUE_NAME=star_wars_task_queue
+SFTP_WORKFLOW_ID=poc-sftp-wf
+STAR_WARS_WORKFLOW_ID=poc-star-wars-wf
+
+PEOPLE_LIST=1,2,3,4,5
+```
