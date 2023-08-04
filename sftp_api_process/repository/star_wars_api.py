@@ -22,10 +22,13 @@ async def __get_resource(resource: str, resource_id: int | None = None) -> dict:
 
 
 async def get_resource_by_url(url: str):
-    result = __get_api_data(url)
+    result = await __get_api_data(url)
     return result
 
 
 async def get_person_by_id(person_id: int | None = None) -> dict:
     result = await __get_resource(PEOPLE, person_id)
     return result
+
+
+

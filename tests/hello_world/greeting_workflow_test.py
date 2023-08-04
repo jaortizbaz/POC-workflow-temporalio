@@ -8,7 +8,7 @@ from hello_world.activity.compose_greeting_activity import ComposeGreetingInput,
 from hello_world.workflow.greeting_workflow import GreetingWorkflow
 
 
-async def test_execute_workflow(client: Client):
+async def test_execute_workflow_it(client: Client):
     task_queue_name = str(uuid.uuid4())
 
     async with Worker(

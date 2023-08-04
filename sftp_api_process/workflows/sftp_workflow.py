@@ -1,3 +1,4 @@
+import time
 from dataclasses import dataclass
 from datetime import timedelta
 
@@ -22,14 +23,12 @@ class SftpWorkflow:
         file_received = await workflow.execute_activity(
             activity=check_filename,
             arg=sftp_workflow_props.sftp_props,
-            start_to_close_timeout=timedelta(seconds=10),
+            start_to_close_timeout=timedelta(days=1),
             heartbeat_timeout=timedelta(seconds=5),
             retry_policy=RetryPolicy(maximum_attempts=3)
         )
 
-        if not file_received:
-            raise RuntimeError(f"File {sftp_workflow_props.sftp_props.filename} not received.")
-
         handle = workflow.get_external_workflow_handle_for(StarWarsWorkflow.run,
                                                            workflow_id=sftp_workflow_props.workflow_id)
         await handle.signal(StarWarsWorkflow.set_has_file, file_received)
+        print(f"signal sent to workflow {sftp_workflow_props.workflow_id}")

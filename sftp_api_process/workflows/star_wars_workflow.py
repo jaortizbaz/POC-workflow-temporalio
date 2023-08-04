@@ -18,26 +18,34 @@ class StarWarsWorkflow:
         await workflow.wait_condition(lambda: self._has_file is not None)
 
         if self._has_file:
-            star_wars_data = await workflow.execute_activity(
+            star_wars_person_data = await workflow.execute_activity(
                 activity=get_person_data_from_star_wars_api,
                 arg=person_id,
                 start_to_close_timeout=timedelta(seconds=10),
                 retry_policy=RetryPolicy(maximum_attempts=3)
             )
 
+            star_wars_planet_data = None
             if person_id % 2 == 0:
-                star_wars_data["planet"] = await workflow.execute_activity(
+                star_wars_planet_data = await workflow.execute_activity(
                     activity=get_planet_data_from_star_wars_api,
-                    arg=star_wars_data["planet"],
+                    arg=star_wars_person_data["homeworld"],
                     start_to_close_timeout=timedelta(seconds=10),
                     retry_policy=RetryPolicy(maximum_attempts=3)
                 )
 
-            self._star_wars_details = star_wars_data
+            self._star_wars_details = {
+                "person": star_wars_person_data,
+                "planet": star_wars_planet_data
+            }
 
     @workflow.signal
     async def set_has_file(self, has_file):
         self._has_file = has_file
+
+    @workflow.query
+    async def has_file(self):
+        return self._has_file
 
     @workflow.query
     async def get_star_wars_details(self):
