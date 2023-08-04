@@ -31,4 +31,4 @@ class SftpWorkflow:
         handle = workflow.get_external_workflow_handle_for(StarWarsWorkflow.run,
                                                            workflow_id=sftp_workflow_props.workflow_id)
         await handle.signal(StarWarsWorkflow.set_has_file, file_received)
-        print(f"signal sent to workflow {sftp_workflow_props.workflow_id}")
+        workflow.logger.info(f"signal sent to workflow {sftp_workflow_props.workflow_id}")

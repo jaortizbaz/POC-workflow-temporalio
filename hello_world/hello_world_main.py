@@ -27,7 +27,7 @@ async def main():
             id="hello-activity-workflow-id",
             task_queue="hello-activity-task-queue",
         )
-        print(f"Result: {result}")
+        logging.log(logging.INFO, f"Result: {result}")
 
 
 if __name__ == "__main__":

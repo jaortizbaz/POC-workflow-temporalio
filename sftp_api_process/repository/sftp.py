@@ -39,11 +39,11 @@ class Sftp:
             self.client.close()
 
     def exists_file(self, sftp_props: SftpProps):
-        print(f"Checking file {sftp_props.filename}.")
+        logging.log(logging.INFO, f"Checking file {sftp_props.filename}.")
         try:
             self.__connect_sftp()
             for file in self.sftp.listdir(self.path):
-                print(f"{file} is in the sftp")
+                logging.log(logging.INFO, f"{file} is in the sftp")
                 if file == sftp_props.filename:
                     return True
         except Exception as e:

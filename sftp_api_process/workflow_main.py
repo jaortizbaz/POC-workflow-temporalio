@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from typing import Optional
 
 from temporalio.client import Client, WorkflowFailureError
@@ -10,6 +11,7 @@ from sftp_api_process.workflows.star_wars_workflow import StarWarsWorkflow
 
 
 async def main():
+    logging.basicConfig(level=logging.INFO)
     config = Config()
     client = await Client.connect(config.TEMPORALIO_HOST)
 
@@ -31,7 +33,7 @@ async def main():
             )
             await handle.result()
             result = await handle.query(StarWarsWorkflow.get_star_wars_details)
-            print(f"Result: {result}")
+            logging.log(logging.INFO, f"Result: {result}")
         except WorkflowFailureError as e:
             append_temporal_stack(e)
 

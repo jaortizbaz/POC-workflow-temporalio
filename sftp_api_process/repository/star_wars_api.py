@@ -1,3 +1,5 @@
+import logging
+
 from sftp_api_process.config.config import Config
 
 
@@ -5,12 +7,12 @@ PEOPLE = 'people'
 
 
 async def __get_api_data(url: str) -> dict:
-    print(f"Getting data from {url}")
+    logging.log(logging.INFO, f"Getting data from {url}")
     import requests
     response = requests.get(url=url)
     response.raise_for_status()
     json_result = response.json()
-    print(f"received data: {json_result}")
+    logging.log(logging.INFO, f"received data: {json_result}")
     return json_result
 
 
